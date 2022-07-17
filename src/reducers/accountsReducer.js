@@ -4,11 +4,9 @@ import mainnetReducer from "./mainnetReducer";
 import testnetReducer from "./testnetReducer";
 
 const accountsReducer = combineReducers({
-    accounts: {
         devnet: devnetReducer,
         mainnet: mainnetReducer,
         testnet: testnetReducer
-    }
 })
-
+ 
 export default accountsReducer;

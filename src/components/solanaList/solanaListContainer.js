@@ -1,5 +1,5 @@
 import { connect } from "react-redux"
-import { getTopAccounts } from "../actions/accountsActions";
+import { getTopAccounts } from "../../actions/accountsActions";
 import SolanaList from "./solanaList"
 
 const mapStateToProps = state => ({

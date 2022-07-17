@@ -1,6 +1,5 @@
 import {clusterApiUrl, Connection, PublicKey, Keypair, LAMPORTS_PER_SOL} from '@solana/web3.js';
 import { useState } from 'react';
-import '../App.css';
 
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
@@ -24,9 +23,11 @@ function SolanaList(props) {
         setTestnet(true);
     }
 
-    function getTopAccounts() {
-        props.getTopAccounts()
-        .then(res => itemize(res));
+    function getTopAccounts(e) {
+        e.preventDefault();
+        props.getTopDevnetAccounts();
+        console.log(props);
+        // .then(res => itemize(res));
     }
    
     function itemize(response) {
@@ -50,7 +51,8 @@ function SolanaList(props) {
     return (
         <div className="SolanaShow">
             <form onSubmit={getTopAccounts}>
-                <div className='checkboxes'>
+            <button>Get List</button>
+                {/* <div className='checkboxes'>
                     <input
                     type='checkbox'
                     className='checkbox'
@@ -75,7 +77,7 @@ function SolanaList(props) {
                     onChange={(e) => handleChoices(e)}>
                         All
                     </input>
-                </div>
+                </div> */}
                 <ul>
                     {list}
                 </ul>
