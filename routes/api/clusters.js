@@ -2,7 +2,7 @@ import axios from 'axios';
 const router = express.Router();
 
 
-router.route('/devnet').get((req, res) => {
+router.route('/api/cluster/devnet').get((req, res) => {
     console.log("req", req);
     fetch(
         "https://api.devnet.solana.com/",
