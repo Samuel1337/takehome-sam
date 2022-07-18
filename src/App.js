@@ -1,4 +1,5 @@
 import './App.css';
+import './reset.css';
 import Footer from './components/footer/footer';
 import Header from './components/header/header';
 import HomeContainer from './components/home/homeContainer';

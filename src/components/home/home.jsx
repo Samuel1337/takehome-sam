@@ -1,5 +1,6 @@
 import React from "react";
 import SolanaList from "../solanaList/solanaList";
+import "./home.scss";
 
 class Home extends React.Component {
     constructor(props) {

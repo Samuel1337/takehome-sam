@@ -5,9 +5,12 @@ function Header() {
 
     return (
         <div className="header-container">
-            <div className="header-left">
-                logo
-            </div>
+            <a href="https://hellomoon.io" target="_blank" rel="noopener noreferrer">
+                <div className="header-left">
+                    <img src="./helloMoonLogo.png" />
+                    <h1>Hello Moon</h1>
+                </div>
+            </a>
             <div className="header-right">
             <div className="dev-info">
                     <a href="https://github.com/Samuel1337" className="dev-links"><FaGithubSquare/></a>
