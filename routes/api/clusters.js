@@ -1,8 +1,9 @@
-import axios from 'axios';
+// import axios from 'axios';
+const express = require('express');
 const router = express.Router();
 
 
-router.route('/api/cluster/devnet').get((req, res) => {
+router.route('api/cluster/devnet').get((req, res) => {
     console.log("req", req);
     fetch(
         "https://api.devnet.solana.com/",
@@ -19,29 +20,29 @@ router.route('/api/cluster/devnet').get((req, res) => {
 })
 
 
-router.get('/mainnet', (req, res) => {
-    axios.post(
-        "https://api.mainnet-beta.solana.com/",
-        {
-            "method":"getLargestAccounts",
-            "jsonrpc":"2.0",
-            "params":[{"commitment":"finalized"}],
-            "id":"2"
-        }
-    )
-})
+// router.get('/mainnet', (req, res) => {
+//     axios.post(
+//         "https://api.mainnet-beta.solana.com/",
+//         {
+//             "method":"getLargestAccounts",
+//             "jsonrpc":"2.0",
+//             "params":[{"commitment":"finalized"}],
+//             "id":"2"
+//         }
+//     )
+// })
 
-router.get('/testnet', (req, res) => {
-    axios.post(
-        "https://api.testnet.solana.com/",
-        {
-            "method":"getLargestAccounts",
-            "jsonrpc":"2.0",
-            "params":[{"commitment":"finalized"}],
-            "id":"3"
-        }
-    )
-})
+// router.get('/testnet', (req, res) => {
+//     axios.post(
+//         "https://api.testnet.solana.com/",
+//         {
+//             "method":"getLargestAccounts",
+//             "jsonrpc":"2.0",
+//             "params":[{"commitment":"finalized"}],
+//             "id":"3"
+//         }
+//     )
+// })
 
 const itemize = (response, cluster) => {
     let accounts = [];
