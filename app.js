@@ -1,14 +1,16 @@
 const express = require('express');
 const app = express();
-const clusters = require("./routes/api/clusters");
 const PORT = process.env.PORT || 4000;
-debugger
+const axios = require("axios");
+
 app.use( express.json() );
+
+// const clusters = require("./routes/api/clusters");
 // app.use("/api/cluster", clusters);
 
 app.get('/devnet', (req, res) => {
     console.log("req", req);
-    fetch(
+    axios.post(
         "https://api.devnet.solana.com/",
         {
             "method":"getLargestAccounts",
@@ -25,7 +27,7 @@ app.get('/devnet', (req, res) => {
 
 app.listen(
     PORT,
-    () => console.log(`App live on http:localhost:${PORT}`)
+    () => console.log(`App live on https://localhost:${PORT}`)
 )
 
 

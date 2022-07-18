@@ -1,4 +1,5 @@
 import {clusterApiUrl, Connection, PublicKey, Keypair, LAMPORTS_PER_SOL} from '@solana/web3.js';
+import axios from 'axios';
 import { useState } from 'react';
 import "./solanaList.scss";
 
@@ -17,8 +18,9 @@ function SolanaList(props) {
 
     function getAccounts(e) {
         e.preventDefault();
-        props.getTopDevnetAccounts();
-        console.log(props);
+        // props.getTopDevnetAccounts();
+        // console.log(props);
+
         let cluster = [
             {"address":"mvines9iiHiQTysrwkJjGf2gb9Ex9jXJX8ns3qwf2kN","lamports":197841527831477321},
             {"address":"APnSR52EC1eH676m7qTBHUJ1nrGpHYpV7XKPxgRDD8gX","lamports":164011035098290000},

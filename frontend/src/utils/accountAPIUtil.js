@@ -4,14 +4,6 @@ export const fetchTopDevnetAccounts = () => {
     return (
     axios.get("/devnet")
 )}
-        // "https://api.devnet.solana.com/",
-        // {
-        //     "method":"getLargestAccounts",
-        //     "jsonrpc":"2.0",
-        //     "params":[{"commitment":"finalized"}],
-        //     "id":"1"
-        // }
-    // )
 
 export const fetchTopMainnetAccounts = () => (
     axios.post(
@@ -36,3 +28,12 @@ export const fetchTopTestnetAccounts = () => (
         }
     )
 )
+
+        // "https://api.devnet.solana.com/",
+        // {
+        //     "method":"getLargestAccounts",
+        //     "jsonrpc":"2.0",
+        //     "params":[{"commitment":"finalized"}],
+        //     "id":"1"
+        // }
+    // )
