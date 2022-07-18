@@ -1,0 +1,164 @@
+$primary: #161F3D;
+$secondary: #12203F;
+$accent1: #1f2a4a;
+$accent2: #2A3455;
+$accent3: #353f5f;
+$hover: #4c5473;
+$outline: #2c3453;
+$gray: #8E93A9;
+
+.solana-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.list-container {
+    width: 95%;
+    background-color: $secondary;
+}
+
+.list-title {
+    padding-block: 0.3em;
+    h1 {
+        font-size: 20px;
+        width: fit-content;
+    }
+}
+
+.list {
+    display: inline-block;
+    background-color: $accent1;
+    padding: 1em;
+    border-radius: 10px;
+    width: 100%;
+    min-width: 900px;
+    overflow-x: hidden;
+    table-layout: fixed;
+    border-collapse: collapse;
+    th {
+        padding: 1em 1.5em;
+        font-size: 16px;
+        text-align: right;
+        vertical-align: center;
+        width: 10%;
+        min-width: 10%;
+        max-width: 10%;
+    }
+    
+    .address {
+        text-align: left;
+    }
+}
+
+.list-item {
+    background-color: $accent1;
+    font-size: 16px;
+    font-weight: 700;
+}
+    td {
+        padding: 1.5em;
+        text-align: right;
+        vertical-align: middle;
+        width: 10%;
+        min-width: 10%;
+        max-width: 10%;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+    
+    .address {
+        border-radius: 5px 0 0 5px;
+        text-align: left;
+    }
+
+    .list-item .item-cluster {
+        border-radius: 0 5px 5px 0;
+        font-weight: 400;
+    }
+
+.empty-item {
+    background-color: $accent1;
+    font-size: 16px;
+    font-weight: 700;
+    td {
+        padding: 1.5em;
+        text-align: right;
+        vertical-align: middle;
+        width: 10%;
+        overflow: unset;
+        white-space: nowrap;
+    }
+    
+    .address {
+        border-radius: 5px 0 0 5px;
+        text-align: left;
+    }
+
+    .item-cluster {
+        border-radius: 0 5px 5px 0;
+        font-weight: 400;
+    }
+}
+
+tr:nth-child(even) {
+    background-color: $accent2;
+}
+
+
+@media screen and (min-width: 900px) {
+    .list-item:hover {
+        background-color: $hover;
+    }
+}
+
+@media screen and (max-width: 900px) {
+
+    .amount {
+        font-weight: 400;
+        font-size: 20px;
+    }
+
+    .item-cluster {
+        display: none;
+    }
+
+    th {
+        display: none;
+    }
+
+    tr {
+        width: 100%;
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+        border-bottom: 1px solid $outline;
+    }
+
+    td {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;        
+        background-color: $secondary;
+    }
+
+    .list-item td {
+        width: calc(100vw - 4em);     
+    }
+
+    .empty-item td {
+        width: calc(100vw - 4em);     
+    }
+
+    .list {
+        padding: 0;
+        border-radius: 0;
+        background-color: $secondary;
+    }
+
+    .list-container {
+        width: 100%;
+    }
+}

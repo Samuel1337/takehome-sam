@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export const fetchTopDevnetAccounts = () => {
-    debugger
     return (
     axios.get("/api/cluster/devnet")
 )}

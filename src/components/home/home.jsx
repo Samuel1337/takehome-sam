@@ -26,14 +26,36 @@ class Home extends React.Component {
         return (
             <div className="home-page">
                 <div className="home-container">
-                    <div className="list-container">
                         <SolanaList
                             getTopDevnetAccounts={this.props.getTopDevnetAccounts}
                             devnet={devnet}
                             mainnet={mainnet}
                             testnet={testnet}
                         />
-                    </div>
+                        {/* <div className="options-container">
+                            <div className='checkboxes'>
+                                <input
+                                    type='checkbox'
+                                    className='checkbox'
+                                />
+                                    <p>Devnet</p>
+                                <input
+                                    type='checkbox'
+                                    className='checkbox'
+                                />
+                                    <p>Mainnet</p>
+                                <input
+                                    type='checkbox'
+                                    className='checkbox'
+                                />
+                                    <p>Testnet</p>
+                                <input
+                                    type='checkbox'
+                                    className='checkbox'
+                                />
+                                    <p>All</p>
+                            </div>
+                        </div> */}
                     <div className="chart-container">
                         {/* <SolanaChart /> */}
                     </div>
