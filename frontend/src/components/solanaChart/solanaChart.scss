@@ -14,3 +14,15 @@ $chart-yellow-stroke: #e2d3a4;
 $chart-red-stroke: #ecb0c8;
 $chart-green-stroke: #abd0a3;
 $chart-blue-stroke: #96b8d4;
+
+.solana-chart {
+    margin-top: 3em;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chart-container {
+    width: 95%;
+}

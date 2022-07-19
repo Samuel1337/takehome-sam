@@ -9,7 +9,8 @@ class Home extends React.Component {
         this.state = {
             devnet: true,
             mainnet: true,
-            testnet: true
+            testnet: true,
+            usd: false
         }
         this.dataForChart = this.dataForChart.bind(this);
         this.reverseMergeSort = this.reverseMergeSort.bind(this);
@@ -23,54 +24,51 @@ class Home extends React.Component {
 
     dataForChart() {
         let { devnet, mainnet, testnet } = this.props;
-        let data = {
-            labels: [], //accounts 
-            datasets: [{
-                label: 'Total SOL',
-                data: [], //lamports
-                backgroundColor: [],
-                borderColor: [],
-                borderWidth: 1
-            }]
-        }
-        
-        let options = {
-            maintainAspectRatio: false,
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
 
         let accountsArray = [];
         let lamportsArray = [];
 
         if (this.state.devnet) {
             devnet.forEach(account => {
-                accountsArray.push(account.address);
-                lamportsArray.push(account.lamports);
+                accountsArray.push(account);
             });
         }
 
         if (this.state.mainnet) {
             mainnet.forEach(account => {
-                accountsArray.push(account.address);
-                lamportsArray.push(account.lamports);
+                accountsArray.push(account);
             });
         }
 
         if (this.state.testnet) {
             testnet.forEach(account => {
-                accountsArray.push(account.address);
-                lamportsArray.push(account.lamports);
+                accountsArray.push(account);
             });
         }
 
-        data.labels = accountsArray;
-        data.datasets.data = lamportsArray;    
+
+        const config = {
+            type: 'bar',
+            data: {
+                labels: accountsArray, //accounts 
+                datasets: [{
+                    label: 'Total SOL', // SOL/USD
+                    data: lamportsArray, //lamports
+                    backgroundColor: '#859e8f',
+                    borderColor: '#abd0a3',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                responsive: true,
+                scales: {
+                    yAxes: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
     }
 
     reverseMergeSort(accounts) {
@@ -81,13 +79,16 @@ class Home extends React.Component {
         }
         
         const left = accounts.splice(0, half);
-        return this.merge(mergeSort(left),mergeSort(accounts));
+        return this.merge(
+            this.reverseMergeSort(left),
+            this.reverseMergeSort(accounts)
+        );
       }
     
     merge(left, right) {
         let arr = [];
         while (left.length && right.length) {
-            if (left[0] > right[0]) {
+            if (left[0].lamports > right[0].lamports) {
                 arr.push(left.shift()); 
             } else {
                 arr.push(right.shift());
