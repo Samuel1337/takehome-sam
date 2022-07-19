@@ -1,39 +1,13 @@
 import axios from "axios";
 
-export const fetchTopDevnetAccounts = () => {
-    return (
+export const fetchTopDevnetAccounts = () => (
     axios.get("/devnet")
-)}
+)
 
 export const fetchTopMainnetAccounts = () => (
-    axios.post(
-        "https://api.mainnet-beta.solana.com/",
-        {
-            "method":"getLargestAccounts",
-            "jsonrpc":"2.0",
-            "params":[{"commitment":"finalized"}],
-            "id":"2"
-        }
-    )
+    axios.get("/mainnet")
 )
 
 export const fetchTopTestnetAccounts = () => (
-    axios.post(
-        "https://api.testnet.solana.com/",
-        {
-            "method":"getLargestAccounts",
-            "jsonrpc":"2.0",
-            "params":[{"commitment":"finalized"}],
-            "id":"3"
-        }
-    )
+    axios.get("/testnet")
 )
-
-        // "https://api.devnet.solana.com/",
-        // {
-        //     "method":"getLargestAccounts",
-        //     "jsonrpc":"2.0",
-        //     "params":[{"commitment":"finalized"}],
-        //     "id":"1"
-        // }
-    // )
