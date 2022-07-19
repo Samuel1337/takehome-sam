@@ -1,4 +1,5 @@
 import React from "react";
+import SolanaChart from "../solanaChart/solanaChart";
 import SolanaList from "../solanaList/solanaList";
 import "./home.scss";
 
@@ -10,11 +11,89 @@ class Home extends React.Component {
             mainnet: true,
             testnet: true
         }
+        this.dataForChart = this.dataForChart.bind(this);
+        this.reverseMergeSort = this.reverseMergeSort.bind(this);
+        this.merge = this.merge.bind(this);
     }
 
     componentDidMount() {
         this.props.getTopDevnetAccounts()
         console.log(this.props)
+    }
+
+    dataForChart() {
+        let { devnet, mainnet, testnet } = this.props;
+        let data = {
+            labels: [], //accounts 
+            datasets: [{
+                label: 'Total SOL',
+                data: [], //lamports
+                backgroundColor: [],
+                borderColor: [],
+                borderWidth: 1
+            }]
+        }
+        
+        let options = {
+            maintainAspectRatio: false,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+
+        let accountsArray = [];
+        let lamportsArray = [];
+
+        if (this.state.devnet) {
+            devnet.forEach(account => {
+                accountsArray.push(account.address);
+                lamportsArray.push(account.lamports);
+            });
+        }
+
+        if (this.state.mainnet) {
+            mainnet.forEach(account => {
+                accountsArray.push(account.address);
+                lamportsArray.push(account.lamports);
+            });
+        }
+
+        if (this.state.testnet) {
+            testnet.forEach(account => {
+                accountsArray.push(account.address);
+                lamportsArray.push(account.lamports);
+            });
+        }
+
+        data.labels = accountsArray;
+        data.datasets.data = lamportsArray;    
+    }
+
+    reverseMergeSort(accounts) {
+        const half = accounts.length / 2;
+        
+        if(accounts.length < 2){
+          return accounts;
+        }
+        
+        const left = accounts.splice(0, half);
+        return this.merge(mergeSort(left),mergeSort(accounts));
+      }
+    
+    merge(left, right) {
+        let arr = [];
+        while (left.length && right.length) {
+            if (left[0] > right[0]) {
+                arr.push(left.shift()); 
+            } else {
+                arr.push(right.shift());
+            }
+        }
+        return [ ...arr, ...left, ...right ];
     }
 
     render() {
@@ -56,9 +135,11 @@ class Home extends React.Component {
                                     <p>All</p>
                             </div>
                         </div> */}
-                    <div className="chart-container">
-                        {/* <SolanaChart /> */}
-                    </div>
+                        <SolanaChart
+                            devnet={devnet}
+                            mainnet={mainnet}
+                            testnet={testnet}
+                        />
                 </div>
             </div>
         )

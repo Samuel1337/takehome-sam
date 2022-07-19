@@ -76,12 +76,16 @@ function SolanaList(props) {
                         <h1>Top Solana Accounts</h1>
                     </div>
                     <table className='list'>
-                        <tr className='list-header'>
-                            <th className='address'>Address</th>
-                            <th>Amount</th>
-                            <th>Cluster</th>
-                        </tr>
-                        {list}
+                        <thead>
+                            <tr className='list-header'>
+                                <th className='address'>Address</th>
+                                <th>Amount</th>
+                                <th>Cluster</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {list}
+                        </tbody>
                     </table>
                 </form>
             </div>

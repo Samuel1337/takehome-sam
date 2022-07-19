@@ -79,8 +79,8 @@ $gray: #8E93A9;
         font-weight: 400;
     }
 
-.empty-item {
-    background-color: $accent1;
+tbody .empty-item {
+    background-color: $accent2;
     font-size: 16px;
     font-weight: 700;
     td {
@@ -116,12 +116,18 @@ tr:nth-child(even) {
 
 @media screen and (max-width: 900px) {
 
+    tbody {
+        display: inline-block;
+        border-top: 1px solid $outline;
+        width: 100%;
+    }
+
     .amount {
         font-weight: 400;
         font-size: 20px;
     }
 
-    .item-cluster {
+    tbody .item-cluster {
         display: none;
     }
 
@@ -129,26 +135,27 @@ tr:nth-child(even) {
         display: none;
     }
 
-    tr {
+    tbody tr {
         width: 100%;
-        display: inline-block;
         margin: 0;
         padding: 0;
+        display: inline-block;
         border-bottom: 1px solid $outline;
     }
 
-    td {
+    tbody td {
         display: flex;
         flex-direction: column;
         justify-content: center;        
         background-color: $secondary;
+        max-width: 100%;
     }
 
-    .list-item td {
+    tbody .list-item td {
         width: calc(100vw - 4em);     
     }
 
-    .empty-item td {
+    tbody .empty-item td {
         width: calc(100vw - 4em);     
     }
 
