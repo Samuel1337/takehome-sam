@@ -92,8 +92,6 @@ class Home extends React.Component {
             chartConfig: this.state.config.chartConfig,
         }
         this.setState({ config: config })
-
-        console.log(this.state)
     }
 
     makeList() {

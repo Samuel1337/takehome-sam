@@ -1,9 +1,5 @@
-import {clusterApiUrl, Connection, PublicKey, Keypair, LAMPORTS_PER_SOL} from '@solana/web3.js';
-import React, { useEffect, useState } from 'react';
-import { render } from 'react-dom';
+import React from 'react';
 import "./solanaList.scss";
-
-window.Buffer = window.Buffer || require("buffer").Buffer;
 
 class SolanaList extends React.Component {
     constructor(props) {
@@ -12,6 +8,7 @@ class SolanaList extends React.Component {
         this.formatCurrency = this.formatCurrency.bind(this);
         this.setCluster = this.setCluster.bind(this);
         this.setAmount = this.setAmount.bind(this);
+        this.setHeader = this.setHeader.bind(this);
         this.createList(props.config.list);
     }
 
@@ -58,6 +55,14 @@ class SolanaList extends React.Component {
         }
     }
 
+    setHeader() {
+        if (this.props.config.usd) {
+            return "Balance (USD)"
+        } else {
+            return "Balance (SOL)"
+        }
+    }
+
     formatCurrency(number) {
         let array = number.toString().split('.');
         let integer = array[0];
@@ -91,7 +96,7 @@ class SolanaList extends React.Component {
                         <thead>
                             <tr className='list-header'>
                                 <th className='address'>Address</th>
-                                <th>Balance</th>
+                                <th>{this.setHeader()}</th>
                                 <th>Cluster</th>
                             </tr>
                         </thead>

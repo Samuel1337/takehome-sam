@@ -10,7 +10,6 @@ app.get('/', (req, res) => {
 });
 
 app.get('/devnet', (req, res) => {
-    console.log("req", req);
     axios.post(
         "https://api.devnet.solana.com/",
         {
@@ -25,7 +24,6 @@ app.get('/devnet', (req, res) => {
 })
 
 app.get('/mainnet', (req, res) => {
-    console.log("req", req);
     axios.post(
         "https://api.mainnet-beta.solana.com/",
         {
@@ -40,7 +38,6 @@ app.get('/mainnet', (req, res) => {
 })
 
 app.get('/testnet', (req, res) => {
-    console.log("req", req);
     axios.post(
         "https://api.testnet.solana.com/",
         {
@@ -64,10 +61,9 @@ app.get('/solusd', (req, res) => {
         code: "SOL",
         meta: true
     }
-    // axios.post("https://api.livecoinwatch.com/coins/single", data, {headers: headers})
-    // .then(payload => res.status(200).send(payload.data.rate.toString()))
-    // .catch(() => res.status(400).send({nousd: "Can't connect with the SOL/USD endpoint at the moment."}))
-    res.status(200).send("43.87");
+    axios.post("https://api.livecoinwatch.com/coins/single", data, {headers: headers})
+    .then(payload => res.status(200).send(payload.data.rate.toString()))
+    .catch(() => res.status(400).send({nousd: "Can't connect with the SOL/USD endpoint at the moment."}))
 })
 
 app.listen(

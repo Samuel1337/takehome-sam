@@ -9,7 +9,7 @@ class SolanaChart extends React.Component {
 		this.chart = new Chart(
 			document.getElementById('myChart'),
 			this.props.config.chartConfig
-		)
+		);
 		
 		this.renderChart = this.renderChart.bind(this);
 	}

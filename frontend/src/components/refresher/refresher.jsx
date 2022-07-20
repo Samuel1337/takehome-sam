@@ -1,5 +1,4 @@
 import "./refresher.scss";
-import { TbRefresh } from "react-icons/tb";
 import { FiRefreshCcw } from "react-icons/fi";
 
 function Refresher(props) {
@@ -22,7 +21,7 @@ function Refresher(props) {
             return <div className="failed-status">{cluster}</div>
         
         } else {
-            return <div className="ready-status">{cluster}</div>
+            return <div className={`${cluster}-ready-status`}>{cluster}</div>
         }
     }
 
