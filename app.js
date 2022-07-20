@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const PORT = 4000;
 const axios = require("axios");
+const { headers } = require('./config/keys');
 
 app.use( express.json() );
 
@@ -52,10 +53,6 @@ app.get('/testnet', (req, res) => {
 })
 
 app.get('/solusd', (req, res) => {
-    const headers = {
-        "content-type": "application/json",
-        "x-api-key": "1e146929-a84b-413b-b471-5e1e334cd1f0"
-    }
     const data = {
         currency: "USD",
         code: "SOL",
