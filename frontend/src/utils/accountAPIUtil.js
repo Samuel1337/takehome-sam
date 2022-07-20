@@ -7,10 +7,7 @@ export const fetchTopDevnetAccounts = () => {
 
 export const fetchTopMainnetAccounts = () => {
     console.log("Mainnet request sent to Solana API. Waiting...")
-    return (
-        axios.get("/api/mainnet")
-        .catch(() => res.status(404).send({nodevnet: "Can't connect with the Mainnet cluster at the moment."}))
-    )
+    return (axios.get("/api/mainnet"))
 }
 
 export const fetchTopTestnetAccounts = () => {
