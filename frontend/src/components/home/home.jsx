@@ -58,6 +58,8 @@ class Home extends React.Component {
             )
     }
 
+    
+
     toggleUSD() {
         let usd = !this.config.usd;
         let config = {
@@ -69,7 +71,7 @@ class Home extends React.Component {
     }
 
     makeList() {
-        
+        console.log("MAKE LIST!")
         let { devnet, mainnet, testnet } = this.props;
         
         let list = [];
@@ -96,36 +98,12 @@ class Home extends React.Component {
             if (account.SOL === 0) {
                 account.SOL = (account.lamports / LAMPORTS_PER_SOL); // converts to SOL
             }
+            if (account.USD === 0) {
+                account.USD = (account.SOL * this.props.currency) // converts to USD
+            }
         })
-
-        if (this.state.config.usd) {
-            list.forEach(account => {
-                if (account.USD === 0) {
-                    account.USD = (account.SOL * this.props.currency) // converts to USD
-                }
-            })
-        } 
         return list;
-    }
-
-    convertScientific(number) {
-        if (Math.abs(number) < 1.0) {
-          let exp = parseInt(number.toString().split('e-')[1]);
-          if (exp) {
-              number *= Math.pow(10,exp-1);
-              number = '0.' + (new Array(exp)).join('0') + number.toString().substring(2);
-          }
-        } else {
-          let exp = parseInt(number.toString().split('+')[1]);
-          if (exp > 20) {
-              exp -= 20;
-              number /= Math.pow(10,exp);
-              number += (new Array(exp+1)).join('0');
-          }
-        }
-        return number;
-      }
-      
+    }  
 
     dataForChart(list) {
 
@@ -135,8 +113,13 @@ class Home extends React.Component {
 
         list.forEach(account => {
             addressArray.push(account.address);
-            lamportsArray.push(account.lamports);
             
+            if (this.state.config.usd) {
+                lamportsArray.push(account.USD);
+            } else {
+                lamportsArray.push(account.SOL);
+            }
+
             if (account.cluster === "devnet") {
                 backgroundColorArray.push("#1dd79b"); // purple
             } else if (account.cluster === "mainnet") {
@@ -157,7 +140,7 @@ class Home extends React.Component {
             data: {
                 labels: addressArray, //accounts 
                 datasets: [{
-                    label: `Largest Solana Accounts in ${currency}`, // SOL/USD
+                    label: `${currency}`, // SOL/USD
                     data: lamportsArray, //lamports
                     backgroundColor: backgroundColorArray,
                     borderColor: '#abd0a3',
@@ -173,6 +156,11 @@ class Home extends React.Component {
                     },
                     xAxes: {
                         display: false
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {}
                     }
                 }
             }
