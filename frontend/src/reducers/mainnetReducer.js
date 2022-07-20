@@ -4,7 +4,7 @@ const mainnetReducer = (state = {}, action) => {
     Object.freeze(state);
     switch(action.type) {
         case RECEIVE_MAINNET:
-            return Object.assign({}, action.accounts);
+            return Object.assign({}, action.accounts.data);
         default:
             return state;
     }

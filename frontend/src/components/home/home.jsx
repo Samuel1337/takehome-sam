@@ -1,4 +1,5 @@
 import React from "react";
+import RefresherContainer from "../refresher/refresherContainer";
 import SolanaChart from "../solanaChart/solanaChart";
 import SolanaList from "../solanaList/solanaList";
 import "./home.scss";
@@ -12,14 +13,35 @@ class Home extends React.Component {
             testnet: true,
             usd: false
         }
+        this.makeList = this.makeList.bind(this);
+        this.formatMoney = this.formatMoney.bind(this);
         this.dataForChart = this.dataForChart.bind(this);
         this.reverseMergeSort = this.reverseMergeSort.bind(this);
         this.merge = this.merge.bind(this);
     }
 
     componentDidMount() {
-        this.props.getTopDevnetAccounts()
-        console.log(this.props)
+        this.props.getSOLtoUSD();
+        this.props.getTopDevnetAccounts();
+        this.props.getTopMainnetAccounts();
+        this.props.getTopTestnetAccounts();
+    }
+
+    makeList() {
+        let { devnet, mainnet, testnet } = this.props;
+        
+        let list = [];
+
+        if (this.state.devnet)  { list.concat(devnet); }
+        if (this.state.mainnet) { list.concat(mainnet); }
+        if (this.state.testnet) { list.concat(testnet); }
+
+        list = this.reverseMergeSort(list);
+        list = this.formatMoney(list);
+    }
+
+    formatMoney(list) {
+        
     }
 
     dataForChart() {
@@ -45,7 +67,6 @@ class Home extends React.Component {
                 accountsArray.push(account);
             });
         }
-
 
         const config = {
             type: 'bar',
@@ -99,43 +120,16 @@ class Home extends React.Component {
 
     render() {
         let { devnet, mainnet, testnet } = this.props;
-        // let allAccounts = devnet.concat(mainnet).concat(testnet);
-
-        // if (allAccounts.length < 1) { return <h1>Loading...</h1> }
 
         return (
             <div className="home-page">
                 <div className="home-container">
+                        <RefresherContainer />
                         <SolanaList
-                            getTopDevnetAccounts={this.props.getTopDevnetAccounts}
                             devnet={devnet}
                             mainnet={mainnet}
                             testnet={testnet}
                         />
-                        {/* <div className="options-container">
-                            <div className='checkboxes'>
-                                <input
-                                    type='checkbox'
-                                    className='checkbox'
-                                />
-                                    <p>Devnet</p>
-                                <input
-                                    type='checkbox'
-                                    className='checkbox'
-                                />
-                                    <p>Mainnet</p>
-                                <input
-                                    type='checkbox'
-                                    className='checkbox'
-                                />
-                                    <p>Testnet</p>
-                                <input
-                                    type='checkbox'
-                                    className='checkbox'
-                                />
-                                    <p>All</p>
-                            </div>
-                        </div> */}
                         <SolanaChart
                             devnet={devnet}
                             mainnet={mainnet}

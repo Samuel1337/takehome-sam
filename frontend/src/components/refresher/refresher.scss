@@ -1,0 +1,41 @@
+.refresher-section {
+    display: flex;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 700;
+    justify-content: flex-end;
+}
+
+.refresher-container {
+    display: flex;
+    margin-top: 1em;
+    margin-right: 1em;
+    * {
+        margin: 0.25em;
+    }
+}
+
+.loading-status {
+    cursor: default;
+    color: gray;
+    &:hover {
+        color: white;
+    }
+}
+
+.failed-status {
+    cursor: default;
+    color: crimson;
+    &:hover {
+        color: red;
+    }
+}
+
+.ready-status {
+    cursor: default;
+    color: green;
+    &:hover {
+        color: lime;
+    }
+
+}

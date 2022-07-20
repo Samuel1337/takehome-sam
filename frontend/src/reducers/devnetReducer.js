@@ -5,7 +5,7 @@ const devnetReducer = (state = {}, action) => {
     
     switch(action.type) {
         case RECEIVE_DEVNET:
-            return Object.assign({}, action.accounts);
+            return Object.assign({}, action.accounts.data);
         default:
             return state;
     }

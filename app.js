@@ -5,8 +5,9 @@ const axios = require("axios");
 
 app.use( express.json() );
 
-// const clusters = require("./routes/api/clusters");
-// app.use("/api/cluster", clusters);
+app.get('/', (req, res) => {
+    res.send("This is for testing.");
+});
 
 app.get('/devnet', (req, res) => {
     console.log("req", req);
@@ -19,9 +20,8 @@ app.get('/devnet', (req, res) => {
             "id":"1"
         }
     )
-    .then(res => res.json())
-    .then(payload => res.status(200).send(itemize(payload)))
-    .catch(() => res.status(400).send({nocontent: "No content found."}))
+    .then(payload => res.status(200).send(itemize(payload, "devnet")))
+    .catch(() => res.status(404).send({nodevnet: "Can't connect with the Devnet cluster at the moment."}))
 })
 
 app.get('/mainnet', (req, res) => {
@@ -35,9 +35,8 @@ app.get('/mainnet', (req, res) => {
             "id":"2"
         }
     )
-    .then(res => res.json())
-    .then(payload => res.status(200).send(itemize(payload)))
-    .catch(() => res.status(404).send({nocontent: "No content found."}))
+    .then(payload => res.status(200).send(itemize(payload, "mainnet")))
+    .catch(() => res.status(404).send({nodevnet: "Can't connect with the Mainnet cluster at the moment."}))
 })
 
 app.get('/testnet', (req, res) => {
@@ -51,26 +50,61 @@ app.get('/testnet', (req, res) => {
             "id":"3"
         }
     )
-    .then(res => res.json())
-    .then(payload => res.status(200).send(itemize(payload)))
-    .catch(() => res.status(404).send({nocontent: "No content found."}))
+    .then(payload => res.status(200).send(itemize(payload, "testnet")))
+    .catch(() => res.status(404).send({nodevnet: "Can't connect with the Testnet cluster at the moment."}))
+})
+
+app.get('/solusd', (req, res) => {
+    // async function fetchRate() {
+    //     await fetch(
+    //         new Request("https://api.livecoinwatch.com/coins/single"), 
+    //         {
+    //             method: "POST",
+    //             headers: new Headers({
+    //                 "content-type": "application/json",
+    //                 "x-api-key": "1e146929-a84b-413b-b471-5e1e334cd1f0"
+    //             }),
+    //             body: JSON.stringify({
+    //                 currency: "USD",
+    //                 code: "SOL",
+    //                 meta: true
+    //             }),
+    //         }
+    //     )
+    //     .then(payload => res.status(200).send(payload.rate))
+    //     .catch(() => res.status(400).send({nousd: "Can't connect with the SOL/USD endpoint at the moment."}))
+    // }
+    // fetchRate();
+        axios.post({
+            baseURL: "https://api.livecoinwatch.com/coins/single", 
+            headers: {
+                "content-type": "application/json",
+                "x-api-key": "1e146929-a84b-413b-b471-5e1e334cd1f0"
+            },
+            data: {
+                currency: "USD",
+                code: "SOL",
+                meta: true
+            }
+        })
+        .then(payload => res.status(200).send(payload.rate))
+        .catch(() => res.status(400).send({nousd: "Can't connect with the SOL/USD endpoint at the moment."}))
 })
 
 app.listen(
     PORT,
     () => console.log(`App live on https://localhost:${PORT}`)
 )
-
+    
 const itemize = (response, cluster) => {
     let accounts = [];
     accounts = response.data.result.value;
     
-    return accounts.map((account, idx) => {
+    return accounts.map(account => {
         return ({
                 address: account.address,
                 lamports: account.lamports,
-                cluster: cluster,
-                id: idx
+                cluster: cluster
             })
     });   
 }
