@@ -1,58 +1,40 @@
 import Chart from 'chart.js/auto';
+import React from 'react';
 import "./solanaChart.scss";
 
-function SolanaChart(props) {
+class SolanaChart extends React.Component {
+  	constructor(props) {
+		super(props);
+		
+		this.chart = new Chart(
+			document.getElementById('myChart'),
+			this.props.config.chartConfig
+		)
+		
+		this.renderChart = this.renderChart.bind(this);
+	}
 
-    window.onload = function() {
-        renderChart();
-     }
+  	renderChart() {
+		if (this.props.config.list.length === 0) { return null; }
+		this.chart.destroy();
+		
+		this.chart = new Chart(
+			document.getElementById('myChart'),
+			this.props.config.chartConfig
+		);
+	}
 
-    function renderChart() {
-        const labels = [
-            'January',
-            'February',
-            'March',
-            'April',
-            'May',
-            'June',
-          ];
-        
-          const data = {
-            labels: labels,
-            datasets: [{
-              label: 'My First dataset',
-              backgroundColor: '#859e8f',
-              borderColor: '#abd0a3',
-              data: [0, 10, 5, 2, 20, 30, 45],
-            }]
-          };
-        
-          const config = {
-            type: 'bar',
-            data: data,
-            options: {
-                responsive: true,
-                scales: {
-                    yAxes: {
-                        beginAtZero: true
-                    }
-                }
-            }
-          };
+	render() {
+		return (
+			<div className="solana-chart">
+				<div className="chart-container">
+					<canvas id="myChart" width="600" height="400"></canvas>
+					{this.renderChart()}
+				</div>
+			</div>
+		)
+	}
 
-          const myChart = new Chart(
-            document.getElementById('myChart'),
-            config
-          );
-    }
-
-    return (
-        <div className="solana-chart">
-            <div className="chart-container">
-                <canvas id="myChart" width="600" height="400"></canvas>
-            </div>
-        </div>
-    )
 }
 
 export default SolanaChart;

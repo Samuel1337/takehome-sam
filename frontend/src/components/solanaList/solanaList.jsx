@@ -1,43 +1,49 @@
 import {clusterApiUrl, Connection, PublicKey, Keypair, LAMPORTS_PER_SOL} from '@solana/web3.js';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { render } from 'react-dom';
 import "./solanaList.scss";
 
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
-function SolanaList(props) {
-    console.log(props)
-    const emptyState = 
-        <tr className='empty-item'>
-            <td className='address'>Loading...</td>
-            <td className='amount'></td>
-            <td className='item-cluster'></td>
-        </tr>
+class SolanaList extends React.Component {
+    constructor(props) {
+        super(props);
+        this.createList = this.createList.bind(this);
+        this.formatCurrency = this.formatCurrency.bind(this);
+        this.createList(props.config.list);
+    }
 
-    const [list, setList] = useState(emptyState);
-   
-    function itemize(response) {
-        if (!response) { return <></> }
-        
-        let accounts = response;
+    createList() {
+        let accounts = this.props.config.list;
 
+        if (accounts.length === 0) {
+            return (
+                <tr className='empty-item'>
+                    <td className='address'>Loading...</td>
+                    <td className='amount'></td>
+                    <td className='item-cluster'></td>
+                </tr>
+            )
+        }
+        console.log("createList!")
+        // debugger
         let newList = accounts.map((account, i) => {            
             return (
                 <tr key={`acc-${i}`} className='list-item'>
                     <td className='address'>{account.address}</td>
-                    <td className='amount'>{formatCurrency(account.lamports)}</td>
+                    <td className='amount'>{this.formatCurrency(account.lamports)}</td>
                     <td className='item-cluster'>{account.cluster}</td>
                 </tr>
             )
         });
 
-        setList(newList); 
+        return newList; 
     }
 
-    function formatCurrency(number) {
+    formatCurrency(number) {
         let array = number.toString().split('.');
-		console.log(array)
         let integer = array[0];
-        let decimal = array[1];
+        let decimal = array[1] || '00';
 
         for (let i = integer.length - 3; i > 0; i -= 3) {
             if (i > 0) {
@@ -46,38 +52,39 @@ function SolanaList(props) {
                 integer = left + ',' + right;
             }
         }
-
 		number = integer + '.' + decimal.slice(0, 2);
 
-        if (props.config.usd) {
-            return `$ ${number} USD`
+        if (this.props.config.usd) {
+            return `$ ${number}`
         } else {
-            return `◎ ${number} SOL`           
+            return `${number} ◎`           
         }
     }
 
-    return (
-        <div className="solana-list">
-            <div className="list-container">
-                <div className='list-title'>
-                    <h1>Top Solana Accounts</h1>
+    render() {
+
+        return (
+            <div className="solana-list">
+                <div className="list-container">
+                    <div className='list-title'>
+                        <h1>Top Solana Accounts</h1>
+                    </div>
+                    <table className='list'>
+                        <thead>
+                            <tr className='list-header'>
+                                <th className='address'>Address</th>
+                                <th>Amount</th>
+                                <th>Cluster</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.createList()}
+                        </tbody>
+                    </table>
                 </div>
-                <table className='list'>
-                    <thead>
-                        <tr className='list-header'>
-                            <th className='address'>Address</th>
-                            <th>Amount</th>
-                            <th>Cluster</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {list}
-                    </tbody>
-                </table>
             </div>
-            {itemize()}
-        </div>
-    );
+        )
+    }
 }
 
 export default SolanaList;

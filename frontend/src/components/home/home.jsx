@@ -23,6 +23,7 @@ class Home extends React.Component {
         this.dataForChart = this.dataForChart.bind(this);
         this.reverseMergeSort = this.reverseMergeSort.bind(this);
         this.merge = this.merge.bind(this);
+        this.display = this.display.bind(this);
     }
 
     componentDidMount() {
@@ -47,6 +48,16 @@ class Home extends React.Component {
         }
     }
 
+    display() {
+            return (
+                <div className="home-container">
+                    <RefresherContainer />
+                    <SolanaChart config={this.state.config} />
+                    <SolanaList  config={this.state.config} />
+                </div>
+            )
+    }
+
     toggleUSD() {
         let usd = !this.config.usd;
         let config = {
@@ -58,7 +69,7 @@ class Home extends React.Component {
     }
 
     makeList() {
-        console.log("makeList", this.props);
+        
         let { devnet, mainnet, testnet } = this.props;
         
         let list = [];
@@ -66,8 +77,6 @@ class Home extends React.Component {
         if (this.state.devnet)  { list = list.concat(devnet);  }
         if (this.state.mainnet) { list = list.concat(mainnet); }
         if (this.state.testnet) { list = list.concat(testnet); }
-        console.log("state", this.state)
-        console.log("list", list)
 
         if (list.length > 0) {
             list = this.reverseMergeSort(list);
@@ -175,11 +184,7 @@ class Home extends React.Component {
     render() {
         return (
             <div className="home-page">
-                <div className="home-container">
-                        <RefresherContainer />
-                        <SolanaList  config={this.state.config} />
-                        <SolanaChart config={this.state.config} />
-                </div>
+                {this.display()}
             </div>
         )
     }
