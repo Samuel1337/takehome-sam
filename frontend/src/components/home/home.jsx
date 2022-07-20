@@ -23,6 +23,8 @@ class Home extends React.Component {
         this.dataForChart = this.dataForChart.bind(this);
         this.reverseMergeSort = this.reverseMergeSort.bind(this);
         this.merge = this.merge.bind(this);
+        this.switchButton = this.switchButton.bind(this);
+        this.toggleUSD = this.toggleUSD.bind(this);
         this.display = this.display.bind(this);
     }
 
@@ -53,25 +55,48 @@ class Home extends React.Component {
                 <div className="home-container">
                     <RefresherContainer />
                     <SolanaChart config={this.state.config} />
+                    {this.switchButton()}
                     <SolanaList  config={this.state.config} />
                 </div>
             )
     }
 
-    
+    switchButton() {
+        return (
+            <div className="switch-section">
+                <div className="switch-container">
+                    <a onClick={this.toggleUSD} id="sol" className="active">SOL </a>| 
+                    <a onClick={this.toggleUSD} id="usd"> USD</a>
+                </div>
+            </div>
+        )
+    }
 
-    toggleUSD() {
-        let usd = !this.config.usd;
+    toggleUSD(e) {
+        e.preventDefault();
+        const solOption = document.getElementById('sol');
+        const usdOption = document.getElementById('usd');
+
+        if (solOption.classList.value === 'active') {
+            solOption.classList.remove('active');
+            usdOption.classList.add('active');
+        } else {
+            solOption.classList.add('active');
+            usdOption.classList.remove('active');
+        }
+
+        let usd = !this.state.config.usd;
         let config = {
             usd: usd,
             list: this.state.config.list,
             chartConfig: this.state.config.chartConfig,
         }
         this.setState({ config: config })
+
+        console.log(this.state)
     }
 
     makeList() {
-        console.log("MAKE LIST!")
         let { devnet, mainnet, testnet } = this.props;
         
         let list = [];
@@ -84,7 +109,10 @@ class Home extends React.Component {
             list = this.reverseMergeSort(list);
             list = this.formatMoney(list);
 
+            let usd = this.state.config.usd;
+
             this.setState({ config: {
+                usd: usd,
                 list: list,
                 chartConfig: this.dataForChart(list)
                }
@@ -93,7 +121,6 @@ class Home extends React.Component {
     }
 
     formatMoney(list) {
-        console.log("list", list);
         list.forEach(account => {
             if (account.SOL === 0) {
                 account.SOL = (account.lamports / LAMPORTS_PER_SOL); // converts to SOL
@@ -160,7 +187,7 @@ class Home extends React.Component {
                 },
                 plugins: {
                     legend: {
-                        labels: {}
+                        display: false
                     }
                 }
             }

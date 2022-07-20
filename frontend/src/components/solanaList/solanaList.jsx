@@ -11,6 +11,7 @@ class SolanaList extends React.Component {
         this.createList = this.createList.bind(this);
         this.formatCurrency = this.formatCurrency.bind(this);
         this.setCluster = this.setCluster.bind(this);
+        this.setAmount = this.setAmount.bind(this);
         this.createList(props.config.list);
     }
 
@@ -30,13 +31,21 @@ class SolanaList extends React.Component {
             return (
                 <tr key={`acc-${i}`} className='list-item'>
                     <td className='address'>{account.address}</td>
-                    <td className='amount'>{this.formatCurrency(account.SOL)}</td>
+                    <td className='amount'>{this.setAmount(account)}</td>
                     {this.setCluster(account.cluster)}
                 </tr>
             )
         });
 
         return newList; 
+    }
+
+    setAmount(account) {
+        if (this.props.config.usd) {
+            return this.formatCurrency(account.USD)
+        } else {
+            return this.formatCurrency(account.SOL)
+        }
     }
 
     setCluster(cluster) {
@@ -82,7 +91,7 @@ class SolanaList extends React.Component {
                         <thead>
                             <tr className='list-header'>
                                 <th className='address'>Address</th>
-                                <th>Amount</th>
+                                <th>Balance</th>
                                 <th>Cluster</th>
                             </tr>
                         </thead>
