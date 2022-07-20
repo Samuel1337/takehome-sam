@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export const fetchSOLtoUSD = () => (
-    axios.get('/solusd')
+    axios.get('/api/solusd')
 )

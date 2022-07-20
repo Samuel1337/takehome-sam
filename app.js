@@ -5,20 +5,9 @@ const axios = require("axios");
 const headers = require('./config/keys');
 const path = require("path");
 
-if (process.env.NODE_ENV === "production") {
-    app.use(express.static("frontend/build"));
-    app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "frontend", "public", "index.html"));
-   });
-}
-
 app.use( express.json() );
 
-app.get('/', (req, res) => {
-    res.send("Node backend is running.");
-});
-
-app.get('/devnet', (req, res) => {
+app.get('/api/devnet', (req, res) => {
     axios.post(
         "https://api.devnet.solana.com/",
         {
@@ -32,7 +21,7 @@ app.get('/devnet', (req, res) => {
     .catch(() => res.status(404).send({nodevnet: "Can't connect with the Devnet cluster at the moment."}))
 })
 
-app.get('/mainnet', (req, res) => {
+app.get('/api/mainnet', (req, res) => {
     axios.post(
         "https://api.mainnet-beta.solana.com/",
         {
@@ -46,7 +35,7 @@ app.get('/mainnet', (req, res) => {
     .catch(() => res.status(404).send({nodevnet: "Can't connect with the Mainnet cluster at the moment."}))
 })
 
-app.get('/testnet', (req, res) => {
+app.get('/api/testnet', (req, res) => {
     axios.post(
         "https://api.testnet.solana.com/",
         {
@@ -60,7 +49,7 @@ app.get('/testnet', (req, res) => {
     .catch(() => res.status(404).send({nodevnet: "Can't connect with the Testnet cluster at the moment."}))
 })
 
-app.get('/solusd', (req, res) => {
+app.get('/api/solusd', (req, res) => {
     const data = {
         currency: "USD",
         code: "SOL",
@@ -70,6 +59,14 @@ app.get('/solusd', (req, res) => {
     .then(payload => res.status(200).send(payload.data.rate.toString()))
     .catch(() => res.status(400).send({nousd: "Can't connect with the SOL/USD endpoint at the moment."}))
 })
+
+
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static("frontend/build"));
+    app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "public", "index.html"));
+   });
+}
 
 app.listen(
     PORT,
