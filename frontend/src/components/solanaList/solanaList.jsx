@@ -1,45 +1,59 @@
 import {clusterApiUrl, Connection, PublicKey, Keypair, LAMPORTS_PER_SOL} from '@solana/web3.js';
 import { useState } from 'react';
-import RefresherContainer from '../refresher/refresherContainer';
 import "./solanaList.scss";
 
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
 function SolanaList(props) {
-
+    console.log(props)
     const emptyState = 
         <tr className='empty-item'>
-            <td className='address'>No cluster selected</td>
+            <td className='address'>Loading...</td>
             <td className='amount'></td>
             <td className='item-cluster'></td>
         </tr>
 
     const [list, setList] = useState(emptyState);
-
-    function getAccounts(e) {
-        e.preventDefault();
-
-    }
    
     function itemize(response) {
-        if (!response) { return <li>Nothing to show</li>}
+        if (!response) { return <></> }
         
-        let accounts = [];
-        accounts = response.data.result.value;
-        
-        // let accounts = response;
+        let accounts = response;
 
         let newList = accounts.map((account, i) => {            
             return (
                 <tr key={`acc-${i}`} className='list-item'>
                     <td className='address'>{account.address}</td>
-                    <td className='amount'>◎{(account.lamports / LAMPORTS_PER_SOL).toFixed(1)} SOL</td>
-                    <td className='item-cluster'>devnet</td>
+                    <td className='amount'>{formatCurrency(account.lamports)}</td>
+                    <td className='item-cluster'>{account.cluster}</td>
                 </tr>
             )
         });
 
         setList(newList); 
+    }
+
+    function formatCurrency(number) {
+        let array = number.toString().split('.');
+		console.log(array)
+        let integer = array[0];
+        let decimal = array[1];
+
+        for (let i = integer.length - 3; i > 0; i -= 3) {
+            if (i > 0) {
+                let left = integer.slice(0, i);
+              	let right = integer.slice(i);
+                integer = left + ',' + right;
+            }
+        }
+
+		number = integer + '.' + decimal.slice(0, 2);
+
+        if (props.config.usd) {
+            return `$ ${number} USD`
+        } else {
+            return `◎ ${number} SOL`           
+        }
     }
 
     return (
@@ -61,6 +75,7 @@ function SolanaList(props) {
                     </tbody>
                 </table>
             </div>
+            {itemize()}
         </div>
     );
 }
