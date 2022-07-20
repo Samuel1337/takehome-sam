@@ -55,40 +55,18 @@ app.get('/testnet', (req, res) => {
 })
 
 app.get('/solusd', (req, res) => {
-    // async function fetchRate() {
-    //     await fetch(
-    //         new Request("https://api.livecoinwatch.com/coins/single"), 
-    //         {
-    //             method: "POST",
-    //             headers: new Headers({
-    //                 "content-type": "application/json",
-    //                 "x-api-key": "1e146929-a84b-413b-b471-5e1e334cd1f0"
-    //             }),
-    //             body: JSON.stringify({
-    //                 currency: "USD",
-    //                 code: "SOL",
-    //                 meta: true
-    //             }),
-    //         }
-    //     )
-    //     .then(payload => res.status(200).send(payload.rate))
-    //     .catch(() => res.status(400).send({nousd: "Can't connect with the SOL/USD endpoint at the moment."}))
-    // }
-    // fetchRate();
-        axios.post({
-            baseURL: "https://api.livecoinwatch.com/coins/single", 
-            headers: {
-                "content-type": "application/json",
-                "x-api-key": "1e146929-a84b-413b-b471-5e1e334cd1f0"
-            },
-            data: {
-                currency: "USD",
-                code: "SOL",
-                meta: true
-            }
-        })
-        .then(payload => res.status(200).send(payload.rate))
-        .catch(() => res.status(400).send({nousd: "Can't connect with the SOL/USD endpoint at the moment."}))
+    const headers = {
+        "content-type": "application/json",
+        "x-api-key": "1e146929-a84b-413b-b471-5e1e334cd1f0"
+    }
+    const data = {
+        currency: "USD",
+        code: "SOL",
+        meta: true
+    }
+    axios.post("https://api.livecoinwatch.com/coins/single", data, {headers: headers})
+    .then(payload => res.status(200).send(payload.data.rate.toString()))
+    .catch(() => res.status(400).send({nousd: "Can't connect with the SOL/USD endpoint at the moment."}))
 })
 
 app.listen(
