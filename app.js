@@ -33,6 +33,9 @@ app.get('/api/mainnet', (req, res) => {
     )
     .then(payload => res.status(200).send(itemize(payload, "mainnet")))
     .catch(() => res.status(404).send({nodevnet: "Can't connect with the Mainnet cluster at the moment."}))
+    setTimeout(() => {
+        res.status(404).send({nodevnet: "Can't connect with the Mainnet cluster at the moment."})
+    }, 10000);
 })
 
 app.get('/api/testnet', (req, res) => {
