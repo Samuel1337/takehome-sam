@@ -1,9 +1,9 @@
-import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import RefresherContainer from "../refresher/refresherContainer";
 import SolanaChart from "../solanaChart/solanaChart";
 import SolanaList from "../solanaList/solanaList";
 import React from "react";
 import "./home.scss";
+import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 
 class Home extends React.Component {
     constructor(props) {
@@ -91,16 +91,41 @@ class Home extends React.Component {
     }
 
     formatMoney(list) {
+        console.log("list", list);
         list.forEach(account => {
-            account.lamports = (account.lamports / LAMPORTS_PER_SOL); // converts to SOL
+            if (account.SOL === 0) {
+                account.SOL = (account.lamports / LAMPORTS_PER_SOL); // converts to SOL
+            }
         })
+
         if (this.state.config.usd) {
             list.forEach(account => {
-                account.lamports = (account.lamports * this.props.currency) // converts to USD
+                if (account.USD === 0) {
+                    account.USD = (account.SOL * this.props.currency) // converts to USD
+                }
             })
         } 
         return list;
     }
+
+    convertScientific(number) {
+        if (Math.abs(number) < 1.0) {
+          let exp = parseInt(number.toString().split('e-')[1]);
+          if (exp) {
+              number *= Math.pow(10,exp-1);
+              number = '0.' + (new Array(exp)).join('0') + number.toString().substring(2);
+          }
+        } else {
+          let exp = parseInt(number.toString().split('+')[1]);
+          if (exp > 20) {
+              exp -= 20;
+              number /= Math.pow(10,exp);
+              number += (new Array(exp+1)).join('0');
+          }
+        }
+        return number;
+      }
+      
 
     dataForChart(list) {
 
@@ -113,13 +138,11 @@ class Home extends React.Component {
             lamportsArray.push(account.lamports);
             
             if (account.cluster === "devnet") {
-                backgroundColorArray.push("#fa62fc");
+                backgroundColorArray.push("#1dd79b"); // purple
             } else if (account.cluster === "mainnet") {
-                backgroundColorArray.push('#f6c343');
-                
+                backgroundColorArray.push('#f6c343'); // yellow
             } else {
-                backgroundColorArray.push("#1dd79b");
-
+                backgroundColorArray.push("#b45be1"); // green
             }
         })
 
@@ -147,6 +170,9 @@ class Home extends React.Component {
                 scales: {
                     yAxes: {
                         beginAtZero: true
+                    },
+                    xAxes: {
+                        display: false
                     }
                 }
             }

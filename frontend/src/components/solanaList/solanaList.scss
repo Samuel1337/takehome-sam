@@ -113,6 +113,17 @@ tr:nth-child(even) {
     background-color: $accent2;
 }
 
+.devnet {
+    color: $green1;
+}
+
+.mainnet {
+    color: $yellow;
+}
+
+.testnet {
+    color: $purple;
+}
 
 @media screen and (min-width: 900px) {
     .list-item:hover {

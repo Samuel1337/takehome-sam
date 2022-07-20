@@ -83,6 +83,8 @@ const itemize = (response, cluster) => {
         return ({
                 address: account.address,
                 lamports: account.lamports,
+                SOL: 0,
+                USD: 0,
                 cluster: cluster
             })
     });   

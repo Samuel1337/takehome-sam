@@ -1,4 +1,6 @@
 import "./refresher.scss";
+import { TbRefresh } from "react-icons/tb";
+import { FiRefreshCcw } from "react-icons/fi";
 
 function Refresher(props) {
 
@@ -29,10 +31,17 @@ function Refresher(props) {
         if (props.devnet.length === 0) { props.getTopDevnetAccounts() }
         if (props.mainnet.length === 0) { props.getTopMainnetAccounts() }
         if (props.testnet.length === 0) { props.getTopTestnetAccounts() }
+
+        let button = document.getElementById("refresh-button")
+        button.classList.add("rotate");
+        setTimeout(() => {
+            button.classList.remove("rotate");
+        }, 2000);
     }
 
     return (
         <div className="refresher-section">
+            <h1>Largest Solana Accounts</h1>
             <div className="refresher-container">
                 <div className="refresher-devnet">
                     {status("Devnet")}
@@ -44,7 +53,7 @@ function Refresher(props) {
                     {status("Testnet")}
                 </div>
 
-                <button onClick={refresh}>Refresh</button>
+                <a id="refresh-button" onClick={refresh}><FiRefreshCcw /></a>
             </div>
         </div>
     )

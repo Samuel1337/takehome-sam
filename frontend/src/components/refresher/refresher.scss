@@ -1,26 +1,53 @@
+$yellow: #f6c343;
+$green1: #00d97e;
+$green2: #1dd79b;
+$pink:   #fa62fc;
+$purple: #b45be1;
+
 .refresher-section {
     display: flex;
     width: 100%;
     font-size: 14px;
     font-weight: 700;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
+    h1 {
+        margin-left: 1em;
+        font-size: 36px;
+        white-space: nowrap;
+        text-align: start;
+    }
 }
 
 .refresher-container {
     display: flex;
+    align-items: center;
     margin-top: 1em;
     margin-right: 1em;
     * {
         margin: 0.25em;
     }
+    a {
+        vertical-align: middle;
+        text-align: center;
+        font-size: 36px;
+        text-decoration: none;
+        color: rgb(100, 100, 150);
+        &:hover {
+            color: rgb(150, 150, 200);
+        }
+    }
+}
+
+.rotate {
+    transition: 2s;
+    color: rgb(150, 150, 200);
+    transform: rotate(-720deg);
 }
 
 .loading-status {
     cursor: default;
-    color: gray;
-    &:hover {
-        color: white;
-    }
+    color: rgb(100, 100, 150);
 }
 
 .failed-status {
@@ -33,9 +60,11 @@
 
 .ready-status {
     cursor: default;
-    color: green;
+    color: rgb(50, 200, 100);
+    transition: 0.1s;
     &:hover {
-        color: lime;
+        color: rgb(150, 200, 150);
+        text-shadow:0px 0px 16px rgb(150, 200, 150);
     }
 
 }
