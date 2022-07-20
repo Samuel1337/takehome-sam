@@ -7,7 +7,7 @@ const headers = require('./config/keys');
 app.use( express.json() );
 
 app.get('/', (req, res) => {
-    res.send("This is for testing.");
+    res.send("Node backend is running.");
 });
 
 app.get('/devnet', (req, res) => {
