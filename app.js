@@ -27,7 +27,7 @@ app.get('/api/devnet', (req, res) => {
     .then(payload => res.status(200).send(itemize(payload, "devnet")))
     .catch(() => res.status(404).send({nodevnet: "Can't connect with the Devnet cluster at the moment."}))
     setTimeout(() => {
-        res.status(404).send({nodevnet: "Can't connect with the Mainnet cluster at the moment."})
+        return res.status(404).send({nodevnet: "Can't connect with the Mainnet cluster at the moment."})
     }, 10000);
 })
 
@@ -44,7 +44,7 @@ app.get('/api/mainnet', (req, res) => {
     .then(payload => res.status(200).send(itemize(payload, "mainnet")))
     .catch(() => res.status(404).send({nomainnet: "Can't connect with the Mainnet cluster at the moment."}))
     setTimeout(() => {
-        res.status(404).send({nomainnet: "Can't connect with the Mainnet cluster at the moment."})
+        return res.status(404).send({nomainnet: "Can't connect with the Mainnet cluster at the moment."})
     }, 10000);
 })
 
@@ -61,7 +61,7 @@ app.get('/api/testnet', (req, res) => {
     .then(payload => res.status(200).send(itemize(payload, "testnet")))
     .catch(() => res.status(404).send({notestnet: "Can't connect with the Testnet cluster at the moment."}))
     setTimeout(() => {
-        res.status(404).send({notestnet: "Can't connect with the Mainnet cluster at the moment."})
+        return res.status(404).send({notestnet: "Can't connect with the Mainnet cluster at the moment."})
     }, 10000);
 })
 
