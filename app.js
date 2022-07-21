@@ -14,7 +14,7 @@ if (process.env.NODE_ENV === "production") {
 
 app.use( express.json() );
 
-const devnet = app.get('/api/devnet', (req, res) => {
+app.get('/api/devnet', (req, res) => {
     
     axios.post(
         "https://api.devnet.solana.com/",
@@ -33,13 +33,9 @@ const devnet = app.get('/api/devnet', (req, res) => {
             res.status(404)
             .send({nodevnet: "Can't connect with the Devnet cluster at the moment."})
     })
-    // setTimeout(function() {
-    //     return res.status(404)
-    //     .send({nodevnet: "Can't connect with the Devnet cluster at the moment."})
-    // }, 8000);
 })
 
-const mainnet = app.get('/api/mainnet', (req, res) => {
+app.get('/api/mainnet', (req, res) => {
     
     axios.post(
         "https://api.mainnet-beta.solana.com/",
@@ -58,13 +54,9 @@ const mainnet = app.get('/api/mainnet', (req, res) => {
             res.status(404)
             .send({nomainnet: "Can't connect with the Mainnet cluster at the moment."})
     })
-    // setTimeout(function() {
-    //     return res.status(404)
-    //     .send({nomainnet: "Can't connect with the Mainnet cluster at the moment."})
-    // }, 8000);
 })
 
-const testnet = app.get('/api/testnet', (req, res) => {
+app.get('/api/testnet', (req, res) => {
 
     axios.post(
         "https://api.testnet.solana.com/",
@@ -83,15 +75,8 @@ const testnet = app.get('/api/testnet', (req, res) => {
             res.status(404)
             .send({notestnet: "Can't connect with the Testnet cluster at the moment."})
     })
-    // setTimeout(function() {
-    //     return res.status(404)
-    //     .send({notestnet: "Can't connect with the Testnet cluster at the moment."})
-    // }, 8000);
 })
 
-devnet.timeout(8000);
-mainnet.timeout(8000);
-testnet.timeout(8000);
 
 app.get('/api/solusd', (req, res) => {
     const data = {
