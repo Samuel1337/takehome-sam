@@ -16,6 +16,8 @@ app.use( express.json() );
 
 app.get('/api/devnet', (req, res) => {
     
+    let alive = true;
+
     axios.post(
         "https://api.devnet.solana.com/",
         {
@@ -25,10 +27,22 @@ app.get('/api/devnet', (req, res) => {
             "id":"1"
         }
     )
-    .then(payload => res.status(200).send(itemize(payload, "devnet")))
-    .catch(() => res.status(404).send({nodevnet: "Can't connect with the Devnet cluster at the moment."}))
+    .then(payload => {
+        if (alive) {
+            res.status(200)
+            .send(itemize(payload, "devnet"))
+        }
+    })
+    .catch(() => {
+        if (alive) {
+            res.status(404)
+            .send({nodevnet: "Can't connect with the Devnet cluster at the moment."})
+        }
+    })
     setTimeout(() => {
-        return res.status(404).send({nodevnet: "Can't connect with the Mainnet cluster at the moment."})
+        alive = false;
+        return res.status(404)
+        .send({nodevnet: "Can't connect with the Devnet cluster at the moment."})
     }, 8000);
 })
 
@@ -65,6 +79,9 @@ app.get('/api/mainnet', (req, res) => {
 })
 
 app.get('/api/testnet', (req, res) => {
+
+    let alive = true;
+    
     axios.post(
         "https://api.testnet.solana.com/",
         {
@@ -74,10 +91,22 @@ app.get('/api/testnet', (req, res) => {
             "id":"3"
         }
     )
-    .then(payload => res.status(200).send(itemize(payload, "testnet")))
-    .catch(() => res.status(404).send({notestnet: "Can't connect with the Testnet cluster at the moment."}))
+    .then(payload => {
+        if (alive) {
+            res.status(200)
+            .send(itemize(payload, "testnet"))
+        }
+    })
+    .catch(() => {
+        if (alive) {
+            res.status(404)
+            .send({notestnet: "Can't connect with the Testnet cluster at the moment."})
+        }
+    })
     setTimeout(() => {
-        return res.status(404).send({notestnet: "Can't connect with the Mainnet cluster at the moment."})
+        alive = false;
+        return res.status(404)
+        .send({notestnet: "Can't connect with the Testnet cluster at the moment."})
     }, 8000);
 })
 
