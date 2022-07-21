@@ -16,10 +16,6 @@ function Refresher(props) {
 
         if (currentCluser.length === 0) {
             return <div className="loading-status">{cluster}</div>
-        
-        } else if (props.errors.length > 1 && props.errors.join().include(cluster)) {
-            return <div className="failed-status">{cluster}</div>
-        
         } else {
             return <div className={`${cluster}-ready-status`}>{cluster}</div>
         }

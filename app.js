@@ -16,8 +16,6 @@ app.use( express.json() );
 
 app.get('/api/devnet', (req, res) => {
     
-    let alive = true;
-
     axios.post(
         "https://api.devnet.solana.com/",
         {
@@ -28,19 +26,14 @@ app.get('/api/devnet', (req, res) => {
         }
     )
     .then(payload => {
-        if (alive) {
             res.status(200)
             .send(itemize(payload, "devnet"))
-        }
     })
     .catch(() => {
-        if (alive) {
             res.status(404)
             .send({nodevnet: "Can't connect with the Devnet cluster at the moment."})
-        }
     })
-    setTimeout(() => {
-        alive = false;
+    setTimeout(function() {
         return res.status(404)
         .send({nodevnet: "Can't connect with the Devnet cluster at the moment."})
     }, 8000);
@@ -48,8 +41,6 @@ app.get('/api/devnet', (req, res) => {
 
 app.get('/api/mainnet', (req, res) => {
     
-    let alive = true;
-
     axios.post(
         "https://api.mainnet-beta.solana.com/",
         {
@@ -60,19 +51,14 @@ app.get('/api/mainnet', (req, res) => {
         }
     )
     .then(payload => {
-        if (alive) {
             res.status(200)
             .send(itemize(payload, "mainnet"))
-        }
     })
     .catch(() => {
-        if (alive) {
             res.status(404)
             .send({nomainnet: "Can't connect with the Mainnet cluster at the moment."})
-        }
     })
-    setTimeout(() => {
-        alive = false;
+    setTimeout(function() {
         return res.status(404)
         .send({nomainnet: "Can't connect with the Mainnet cluster at the moment."})
     }, 8000);
@@ -80,8 +66,6 @@ app.get('/api/mainnet', (req, res) => {
 
 app.get('/api/testnet', (req, res) => {
 
-    let alive = true;
-    
     axios.post(
         "https://api.testnet.solana.com/",
         {
@@ -92,19 +76,14 @@ app.get('/api/testnet', (req, res) => {
         }
     )
     .then(payload => {
-        if (alive) {
             res.status(200)
             .send(itemize(payload, "testnet"))
-        }
     })
     .catch(() => {
-        if (alive) {
             res.status(404)
             .send({notestnet: "Can't connect with the Testnet cluster at the moment."})
-        }
     })
-    setTimeout(() => {
-        alive = false;
+    setTimeout(function() {
         return res.status(404)
         .send({notestnet: "Can't connect with the Testnet cluster at the moment."})
     }, 8000);
