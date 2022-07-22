@@ -1,6 +1,6 @@
 # Sam's Hello Moon Exercise 
 
-This an application that fetches the largest Solana accounts from three different clusters (devnet, mainnet and testnet) and displays it in a chart and a table both in SOL and USD.
+This is an application that fetches the largest Solana accounts from three different clusters (devnet, mainnet and testnet) and displays it in a chart and a table both in SOL and USD.
 
 ## Techonologies used
 
