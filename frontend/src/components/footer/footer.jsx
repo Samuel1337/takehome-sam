@@ -8,7 +8,7 @@ function Footer() {
             <div className="footer-main">
                 <a href="https://hellomoon.io" target="_blank" rel="noopener noreferrer">
                     <div className="footer-logo">
-                        {/* <img src="./helloMoonLogo.png" /> */}
+                        <img src="./logo.png" />
                         <h1>Takehome Exercise</h1>
                     </div> 
                 </ a>

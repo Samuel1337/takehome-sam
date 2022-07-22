@@ -7,7 +7,7 @@ function Header() {
         <div className="header-container">
             <a href="https://hellomoon.io" target="_blank" rel="noopener noreferrer">
                 <div className="header-left">
-                    {/* <img src="./helloMoonLogo.png" /> */}
+                    <img src="./logo.png" />
                     <h1>Takehome Exercise</h1>
                 </div>
             </a>
