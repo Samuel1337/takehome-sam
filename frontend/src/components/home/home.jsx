@@ -1,9 +1,9 @@
 import RefresherContainer from "../refresher/refresherContainer";
 import SolanaChart from "../solanaChart/solanaChart";
 import SolanaList from "../solanaList/solanaList";
+import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import React from "react";
 import "./home.scss";
-import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 
 class Home extends React.Component {
     constructor(props) {
