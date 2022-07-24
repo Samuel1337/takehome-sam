@@ -57,7 +57,7 @@ Here's a little preview of the code:
 
 - ### Chart
 
-![png](https://github.com/Samuel1337/takehome-sam/blob/ba58bd1a30668d08abaedf0dac3c641298acedbd/images/home.png)
+![png](https://github.com/Samuel1337/takehome-sam/blob/2140c035e7427cd826181643965adaf2cb7e2490/images/home.png)
 
 The homepage greets you with a chart of the largest Solana accounts based on data that is fetched from the Solana clusters. As more information comes in the chart automatically updates its content in real time.
 
