@@ -34,6 +34,21 @@ Here's a little preview of the code:
                 .send({nodevnet: "Can't connect with the Devnet cluster at the moment."})
         })
     })
+
+    const itemize = (response, cluster) => {
+        let accounts = [];
+        accounts = response.data.result.value;
+    
+        return accounts.map(account => {
+            return ({
+                address: account.address,
+                lamports: account.lamports,
+                SOL: 0,
+                USD: 0,
+                cluster: cluster
+            })
+        });   
+    }
 ```
 
 ## Features
