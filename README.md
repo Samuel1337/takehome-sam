@@ -2,6 +2,8 @@
 
 This is an application that fetches the largest Solana accounts from three different clusters (devnet, mainnet and testnet) and displays it in a chart and a table both in SOL and USD.
 
+Live: https://sams-hello-moon.herokuapp.com/
+
 ## Techonologies used
 
 - Express.js
