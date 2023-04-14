@@ -1,15 +1,13 @@
 import Chart from 'chart.js/auto';
 import React from 'react';
 import "./solanaChart.scss";
+Chart.useSecureCSS = true;
 
 class SolanaChart extends React.Component {
   	constructor(props) {
 		super(props);
 		
-		this.chart = new Chart(
-			document.getElementById('myChart'),
-			this.props.config.chartConfig
-		);
+		this.chart = null;
 		
 		this.renderChart = this.renderChart.bind(this);
 	}
@@ -19,7 +17,7 @@ class SolanaChart extends React.Component {
 		this.chart.destroy();
 		
 		this.chart = new Chart(
-			document.getElementById('myChart'),
+			document.getElementById('myChart').getContext('2d'),
 			this.props.config.chartConfig
 		);
 	}

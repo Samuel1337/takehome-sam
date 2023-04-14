@@ -9,7 +9,7 @@ function Footer() {
                 <a href="https://hellomoon.io" target="_blank" rel="noopener noreferrer">
                     <div className="footer-logo">
                         <img src="./logo.png" />
-                        <h1>Takehome Exercise</h1>
+                        <h1>Solana Watch</h1>
                     </div> 
                 </ a>
                 <div className="dev-info">
@@ -19,7 +19,7 @@ function Footer() {
                 </div>
             </div>
             <div className="footer-bottom">
-                <p>This web application was designed by Sam Martins, July 2022</p>
+                <p>This web application was designed by Sam Martins</p>
             </div>
         </div>
     )
