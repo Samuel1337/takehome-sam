@@ -8,7 +8,7 @@ function Header() {
             <a href="https://hellomoon.io" target="_blank" rel="noopener noreferrer">
                 <div className="header-left">
                     <img src="./logo.png" />
-                    <h1>Takehome Exercise</h1>
+                    <h1>Solana Watch</h1>
                 </div>
             </a>
             <div className="header-right">
