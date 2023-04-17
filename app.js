@@ -15,7 +15,7 @@ if (process.env.NODE_ENV === "production") {
 app.use( express.json() );
 
 app.get('/api/devnet', (req, res) => {
-    
+
     axios.post(
         "https://api.devnet.solana.com/",
         {
@@ -30,6 +30,7 @@ app.get('/api/devnet', (req, res) => {
             .send(itemize(payload, "devnet"))
     })
     .catch(() => {
+            console.log('devnet .catch: ', res);
             res.status(404)
             .send({nodevnet: "Can't connect with the Devnet cluster at the moment."})
     })
